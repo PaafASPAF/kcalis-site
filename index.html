@@ -45,94 +45,134 @@
     </div>
   </header>
   <main id="contenu">
-    <section class="hero">
-      <div class="wrap">
-        <p class="eyebrow">Bientôt sur l’App Store</p>
-        <h1>Ta nutrition et tes séances, au même endroit.</h1>
-        <p class="lead">Kcalis est une app iPhone en français pour noter ce que tu manges, suivre tes séances de musculation et garder un œil sur ton poids.</p>
-        <div class="actions">
-          <a class="button" href="#fonctions">Découvrir l’app</a>
-          <a class="button button--ghost" href="/support.html">Aide et contact</a>
+    <section class="hero" aria-labelledby="titre-accueil">
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <p class="pill">Bientôt sur l’App Store</p>
+          <h1 id="titre-accueil">Ta nutrition et tes séances, au même endroit.</h1>
+          <p class="lead">Kcalis est une app iPhone en français pour noter ce que tu manges, suivre tes séances de musculation et garder un œil sur ton poids.</p>
+          <div class="actions">
+            <a class="button" href="#fonctions">Découvrir l’app</a>
+            <a class="button button--glass" href="/support.html">Aide et contact</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="phone">
+            <div class="phone-screen">
+              <img class="phone-icon" src="/favicon.svg" alt="Icône de l’app Kcalis" width="128" height="128">
+            </div>
+            <span class="phone-island"></span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="fonctions" aria-labelledby="titre-fonctions">
-      <div class="wrap">
-        <h2 id="titre-fonctions">Ce que tu peux faire avec Kcalis</h2>
-        <ul class="cards">
+    <section class="world world--pale world--from-left" id="fonctions" aria-labelledby="titre-nutrition">
+      <div class="wrap world-grid world-grid--split">
+        <div class="world-head">
+          <p class="kicker" id="titre-fonctions">Ce que tu peux faire avec Kcalis</p>
+          <h2 id="titre-nutrition">Nutrition</h2>
+          <p class="world-lead">Journal, recherche, scan, recettes, pesées et bilans.</p>
+        </div>
+        <ul class="cards" role="list">
           <li>
-            <article class="card">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 4h12a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2zM6 18a2 2 0 0 1 2-2h12M10 8h6M10 11h4"/></svg>
+            <article class="card card--light">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M6 4h12a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2zM6 18a2 2 0 0 1 2-2h12M10 8h6M10 11h4"/></svg></span>
               <h3>Journal et recherche d’aliments</h3>
               <p>Note tes repas et ton eau. Cherche un aliment dans la table Ciqual de l’ANSES ou parmi les produits de marque d’Open Food Facts.</p>
             </article>
           </li>
           <li>
-            <article class="card">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 8v8M11 8v8M14 8v8M17 8v8"/></svg>
+            <article class="card card--light">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 8v8M11 8v8M14 8v8M17 8v8"/></svg></span>
               <h3>Scan de code-barres</h3>
               <p>Scanne un produit pour retrouver ses valeurs nutritionnelles. Si tu as indiqué des allergies, Kcalis t’alerte.</p>
             </article>
           </li>
           <li>
-            <article class="card">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11h16a8 8 0 0 1-16 0zM8 7c0-1.5 1-2 1-3M12 7c0-1.5 1-2 1-3M16 7c0-1.5 1-2 1-3"/></svg>
+            <article class="card card--light">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M4 11h16a8 8 0 0 1-16 0zM8 7c0-1.5 1-2 1-3M12 7c0-1.5 1-2 1-3M16 7c0-1.5 1-2 1-3"/></svg></span>
               <h3>Recettes et aliments perso</h3>
               <p>Crée tes propres aliments et tes recettes, puis retrouve-les dans ton historique.</p>
             </article>
           </li>
           <li>
-            <article class="card">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10v4M6 7v10M18 7v10M21 10v4M6 12h12"/></svg>
+            <article class="card card--light">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M4 4v16h16M8 16l4-5 3 3 5-6"/></svg></span>
+              <h3>Poids et bilans</h3>
+              <p>Note tes pesées et, si tu veux, tes mesures. Consulte tes bilans pour voir où tu en es.</p>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="world world--dark" id="optimisation" aria-labelledby="titre-optimisation">
+      <div class="wrap world-grid world-grid--split world-grid--reverse">
+        <div class="world-head">
+          <h2 id="titre-optimisation">Optimisation</h2>
+          <p class="world-lead">Séances, charges conseillées et amis.</p>
+        </div>
+        <ul class="cards" role="list">
+          <li>
+            <article class="card card--dark">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M3 10v4M6 7v10M18 7v10M21 10v4M6 12h12"/></svg></span>
               <h3>Séances et charges conseillées</h3>
               <p>Enregistre tes séances de musculation. Les charges conseillées sont calculées par des règles simples, sans IA, en tenant compte de ta forme du jour.</p>
             </article>
           </li>
           <li>
-            <article class="card">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4v16h16M8 16l4-5 3 3 5-6"/></svg>
-              <h3>Poids et bilans</h3>
-              <p>Note tes pesées et, si tu veux, tes mesures. Consulte tes bilans pour voir où tu en es.</p>
+            <article class="card card--dark">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 6"/></svg></span>
+              <h3>Amis</h3>
+              <p>Ajoute jusqu’à 10 amis avec ton pseudo. Tu choisis ce que tu partages : séances, pas, calories.</p>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="world world--pale world--from-right" aria-labelledby="titre-pro">
+      <div class="wrap">
+        <div class="world-head world-head--center">
+          <h2 id="titre-pro">Gratuit, ou avec Kcalis Pro</h2>
+          <p class="world-lead">Kcalis est gratuit, avec de la publicité. L’abonnement <strong>Kcalis Pro</strong>, acheté et géré par Apple, retire la publicité et ajoute deux fonctions d’intelligence artificielle :</p>
+        </div>
+        <ul class="cards" role="list">
+          <li>
+            <article class="card card--light">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.6l1.4-2h5l1.4 2h1.6A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.5"/></svg></span>
+              <h3>Photo IA</h3>
+              <p>Prends ton repas en photo, elle est analysée par Gemini, l’IA de Google. Kcalis ne conserve pas la photo.</p>
             </article>
           </li>
           <li>
-            <article class="card">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 6"/></svg>
-              <h3>Amis</h3>
-              <p>Ajoute jusqu’à 10 amis avec ton pseudo. Tu choisis ce que tu partages : séances, pas, calories.</p>
+            <article class="card card--light">
+              <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M7.5 14.5A4 4 0 0 1 8 6.6a4.5 4.5 0 0 1 8 0 4 4 0 0 1 .5 7.9V19h-9zM7.5 16.5h9"/></svg></span>
+              <h3>Chef IA</h3>
+              <p>Un assistant d’IA pour t’aider en cuisine, qui tient compte des allergies que tu as choisi d’indiquer.</p>
             </article>
           </li>
         </ul>
+        <p class="note">Les réponses de l’IA sont générées automatiquement : elles peuvent contenir des erreurs et n’ont aucune valeur médicale. Les prix sont affichés dans l’app.</p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="titre-pro">
-      <div class="wrap wrap--text">
-        <h2 id="titre-pro">Gratuit, ou avec Kcalis Pro</h2>
-        <p>Kcalis est gratuit, avec de la publicité. L’abonnement Kcalis Pro, acheté et géré par Apple, retire la publicité et ajoute deux fonctions d’intelligence artificielle :</p>
-        <ul>
-          <li><strong>Photo IA</strong> : prends ton repas en photo, elle est analysée par Gemini, l’IA de Google. Kcalis ne conserve pas la photo.</li>
-          <li><strong>Chef IA</strong> : un assistant d’IA pour t’aider en cuisine, qui tient compte des allergies que tu as choisi d’indiquer.</li>
-        </ul>
-        <p class="note">Les réponses de l’IA sont générées automatiquement : elles peuvent contenir des erreurs et n’ont aucune valeur médicale. Les prix sont affichés dans l’app.</p>
+    <div class="world world--end">
+      <div class="wrap duo">
+        <section class="card card--dark card--feature" aria-labelledby="titre-sortie">
+          <img class="app-icon" src="/favicon.svg" alt="" width="64" height="64">
+          <h2 id="titre-sortie">Bientôt sur l’App Store</h2>
+          <p>La sortie de Kcalis sur iPhone est prévue fin novembre 2026. Une version Android viendra plus tard.</p>
+          <p>Une question ? Consulte la page <a href="/support.html">Aide</a> ou écris à <a href="mailto:contact@kcalis.app">contact@kcalis.app</a>.</p>
+        </section>
+        <section class="card card--dark card--feature" aria-labelledby="titre-sante">
+          <span class="tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" width="26" height="26" fill="none" focusable="false"><path d="M5 19c.5-8 5.5-13 14-14-.5 8.5-5.5 13.5-14 14zM5 19l8-8"/></svg></span>
+          <h2 id="titre-sante">Une app de bien-être</h2>
+          <p>Kcalis t’aide à suivre ton alimentation et ton entraînement. Ce n’est pas un dispositif médical et elle ne remplace pas l’avis d’un médecin ou d’un professionnel de santé. Tes données de santé ne servent jamais à la publicité. Pour en savoir plus, lis la <a href="/confidentialite.html">politique de confidentialité</a>.</p>
+        </section>
       </div>
-    </section>
-
-    <section class="band" aria-labelledby="titre-sortie">
-      <div class="wrap wrap--text">
-        <h2 id="titre-sortie">Bientôt sur l’App Store</h2>
-        <p>La sortie de Kcalis sur iPhone est prévue fin novembre 2026. Une version Android viendra plus tard.</p>
-        <p>Une question ? Consulte la page <a href="/support.html">Aide</a> ou écris à <a href="mailto:contact@kcalis.app">contact@kcalis.app</a>.</p>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="titre-sante">
-      <div class="wrap wrap--text">
-        <h2 id="titre-sante">Une app de bien-être</h2>
-        <p>Kcalis t’aide à suivre ton alimentation et ton entraînement. Ce n’est pas un dispositif médical et elle ne remplace pas l’avis d’un médecin ou d’un professionnel de santé. Tes données de santé ne servent jamais à la publicité. Pour en savoir plus, lis la <a href="/confidentialite.html">politique de confidentialité</a>.</p>
-      </div>
-    </section>
+    </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
@@ -144,7 +184,7 @@
           <li><a href="/support.html">Aide</a></li>
         </ul>
       </nav>
-      <p>Contact : <a href="mailto:contact@kcalis.app">contact@kcalis.app</a></p>
+      <p>Contact : <a href="mailto:contact@kcalis.app">contact@kcalis.app</a></p>
       <p>Ce site n’utilise aucun cookie ni traceur.</p>
       <p>© 2026 Kcalis — Adel Flandrin EI</p>
     </div>

@@ -29,3 +29,7 @@ Site 100 % statique : HTML et CSS, sans framework, sans étape de construction, 
 - Ne jamais ajouter d'attribut `style`, de balise `<style>`, de script ni de ressource venant d'un autre domaine : la politique de sécurité (CSP) de chaque page les bloquerait.
 - Les valeurs à fournir sont marquées `[à compléter]` (classe CSS `todo`). Pour les retrouver : `grep -n "à compléter" *.html`.
 - Après une modification d'une page légale, mettre à jour la date « Dernière mise à jour » et `lastmod` dans `sitemap.xml`.
+- Animations : uniquement sur `transform` et `opacity`, déclarées dans `@media (prefers-reduced-motion: no-preference)`. Avec « Réduire les animations », plus rien ne bouge.
+- Téléphone de l'accueil : sans capture, son écran montre seulement l'icône (`favicon.svg`) sur fond `#050506`. Les captures d'écran de l'app vont dans `assets/captures/` (`capture-1.webp`, `capture-2.webp`…, 590 px de large, 150 Ko au plus), avec un texte alternatif qui décrit l'écran montré ; jamais de fausse interface.
+- Verre dépoli : chaque élément a d'abord un fond opaque, remplacé par le verre translucide dans `@supports (backdrop-filter)`. Tout nouveau couple texte/fond doit rester au contraste AA, y compris sur le verre.
+- Tableaux des pages légales : chaque cellule `<td>` porte un `data-label` (titre de sa colonne), affiché quand le tableau devient une liste de cartes sous 600 px.
