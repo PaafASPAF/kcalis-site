@@ -1,23 +1,100 @@
-/* Kcalis — feuille de style unique du site (aucun style inline, voir la CSP). */
+/* Kcalis — feuille de style unique du site.
+   Style de l'app : base claire (monde Nutrition), verre blanc, titres noirs très gras,
+   monde Optimisation sombre. Aucun style inline (la CSP l'interdit), polices système,
+   animations sur transform et opacity seulement, pilotées par le défilement et
+   désactivées si l'utilisateur demande de réduire les animations. */
 
 :root {
-  --bg: #050506;
-  --bg-raised: #111114;
-  --line: #2a2a30;
-  --text: #f2f2f7;
-  --muted: #a1a1aa;
-  --blue: #007aff;
-  --blue-hover: #3395ff;
-  --light: #bfd8ed;
-  --light-text: #050506;
-  --light-link: #004a9f;
-  --todo-bg: #3d2e00;
-  --todo-text: #ffd666;
-  --radius: 16px;
-  --max: 68rem;
-  --max-text: 46rem;
-  color-scheme: dark;
+  --ink: #050506;          /* titres, boutons principaux, monde Optimisation */
+  --pale: #bfd8ed;         /* monde Nutrition */
+  --mist: #f3f7fc;         /* blanc bleuté */
+  --blue: #007aff;         /* accent : icônes et petits détails */
+  --link: #004a9f;         /* liens sur fond clair (contraste AA) */
+
+  --text: #050506;
+  --text-2: #3b4b5c;       /* texte secondaire sur fond clair */
+  --on-dark: #f2f2f7;
+  --on-dark-2: #a1a1aa;
+  --hairline: rgba(5, 5, 6, 0.1);
+  --hairline-dark: rgba(255, 255, 255, 0.12);
+
+  /* Verre : fond opaque de repli, remplacé par le verre translucide
+     dans @supports quand backdrop-filter est pris en charge. */
+  --glass-solid: #eef4fa;
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 1px 2px rgba(15, 40, 70, 0.05), 0 14px 34px -16px rgba(15, 40, 70, 0.2);
+  --glass-dark-solid: #151518;
+  --glass-dark: rgba(255, 255, 255, 0.07);
+  --blur: saturate(180%) blur(20px);
+
+  --radius: 1.625rem;      /* 26 px */
+  --radius-sm: 1.125rem;
+  --max: 72rem;
+  --max-text: 44rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --header-h: 3.5rem;
+  --space: clamp(4rem, 9vw, 7rem);
+
+  /* Téléphone de l'accueil : sa hauteur, et l'agrandissement final qui fait
+     couvrir la vue par son écran (calculé selon les proportions de l'écran). */
+  --ph: 70vh;
+  --zoom-end: 1.9;
+
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  color-scheme: light;
 }
+
+@supports (height: 1svh) {
+  :root {
+    --ph: 70svh;
+  }
+}
+
+@media (min-aspect-ratio: 1/2) {
+  :root {
+    --zoom-end: 2.6;
+  }
+}
+
+@media (min-aspect-ratio: 3/4) {
+  :root {
+    --zoom-end: 3.6;
+  }
+}
+
+@media (min-aspect-ratio: 1/1) {
+  :root {
+    --zoom-end: 4.7;
+  }
+}
+
+@media (min-aspect-ratio: 4/3) {
+  :root {
+    --zoom-end: 5.6;
+  }
+}
+
+@media (min-aspect-ratio: 8/5) {
+  :root {
+    --zoom-end: 6.3;
+  }
+}
+
+@media (min-aspect-ratio: 9/5) {
+  :root {
+    --zoom-end: 7.6;
+  }
+}
+
+@media (min-aspect-ratio: 11/5) {
+  :root {
+    --zoom-end: 9.2;
+  }
+}
+
+/* Base */
 
 *,
 *::before,
@@ -28,65 +105,60 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(180deg, var(--pale) 0, #dce9f5 30rem, var(--mist) 62rem) no-repeat, var(--mist);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font);
   font-size: 1.0625rem;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-wrap: break-word;
 }
 
 img,
 svg {
+  display: block;
   max-width: 100%;
   height: auto;
 }
 
 a {
-  color: var(--blue);
-  text-underline-offset: 0.18em;
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 }
 
 a:hover {
-  color: var(--blue-hover);
+  text-decoration-thickness: 2px;
 }
 
 :focus-visible {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--ink);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 h1,
 h2,
 h3 {
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-h1 {
-  font-size: clamp(2rem, 7vw, 3.5rem);
-  margin: 0 0 1rem;
+  margin: 0;
+  color: inherit;
+  font-weight: 800;
+  line-height: 1.1;
   letter-spacing: -0.025em;
-}
-
-h2 {
-  font-size: clamp(1.375rem, 4vw, 1.75rem);
-  margin: 2.5rem 0 0.75rem;
-}
-
-h3 {
-  font-size: 1.125rem;
-  margin: 1.75rem 0 0.5rem;
+  text-wrap: balance;
 }
 
 p,
 ul,
-ol {
+ol,
+dl {
   margin: 0 0 1rem;
 }
 
@@ -96,58 +168,54 @@ ol {
 }
 
 li + li {
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
 }
 
 strong {
-  font-weight: 650;
+  font-weight: 700;
+  color: inherit;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+address {
+  font-style: normal;
 }
 
 .skip-link {
   position: absolute;
+  top: -4rem;
   left: 1rem;
-  top: -3rem;
-  z-index: 10;
-  padding: 0.5rem 1rem;
-  background: var(--blue);
+  z-index: 100;
+  padding: 0.625rem 1rem;
+  border-radius: 999px;
+  background: var(--ink);
   color: #fff;
-  font-weight: 600;
-  border-radius: 8px;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .skip-link:focus {
-  top: 0.75rem;
-  color: #fff;
+  top: 0.5rem;
 }
 
 .wrap {
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--gutter);
 }
 
 .wrap--text {
-  max-width: var(--max-text);
+  max-width: calc(var(--max-text) + 2 * var(--gutter));
 }
 
-/* En-tête */
+/* En-tête : verre blanc, logo noir */
 
 .site-header {
-  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--mist);
+  border-bottom: 1px solid var(--hairline);
 }
 
 .site-header .wrap {
@@ -155,36 +223,30 @@ strong {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 3.75rem;
+  min-height: var(--header-h);
 }
 
+/* Logo : le mot « Kcalis » en noir, dans la graisse système la plus forte,
+   en attendant le fichier du logo. */
 .brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--text);
-  font-weight: 700;
-  font-size: 1.1875rem;
-  letter-spacing: -0.01em;
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
   text-decoration: none;
 }
 
 .brand:hover {
-  color: var(--text);
-}
-
-.brand img {
-  width: 2rem;
-  height: 2rem;
-  flex: none;
+  color: var(--ink);
 }
 
 .site-nav ul {
   display: flex;
-  gap: 1.25rem;
-  list-style: none;
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .site-nav li + li {
@@ -193,86 +255,295 @@ strong {
 
 .site-nav a {
   display: inline-block;
-  padding: 0.5rem 0;
-  font-weight: 500;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
   text-decoration: none;
 }
 
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
 .site-nav a[aria-current="page"] {
-  color: var(--text);
+  background: rgba(5, 5, 6, 0.07);
 }
 
-/* Accueil */
+/* Pastilles et boutons */
 
-.hero {
-  padding: 3.5rem 0 3rem;
-}
-
-.eyebrow {
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.25rem 0.75rem;
-  border: 1px solid var(--line);
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.375rem 0.9375rem 0.375rem 0.75rem;
+  border: 1px solid var(--glass-border);
   border-radius: 999px;
-  color: var(--muted);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
+  color: var(--ink);
   font-size: 0.9375rem;
+  font-weight: 600;
 }
 
-.lead {
-  max-width: 38rem;
-  color: var(--muted);
-  font-size: clamp(1.125rem, 3.2vw, 1.3125rem);
+.pill::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.18);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
   margin-top: 1.75rem;
 }
 
 .button {
-  display: inline-block;
-  padding: 0.75rem 1.4rem;
-  border-radius: 12px;
-  background: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.8125rem 1.625rem;
+  border-radius: 999px;
+  background: var(--ink);
+  box-shadow: 0 12px 24px -14px rgba(5, 5, 6, 0.7);
   color: #fff;
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   text-decoration: none;
 }
 
 .button:hover {
-  background: var(--blue-hover);
-  color: #050506;
+  color: #fff;
+  transform: translateY(-1px);
 }
 
-.button--ghost {
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--text);
+.actions .button {
+  min-width: 13.5rem;
 }
 
-.button--ghost:hover {
-  background: var(--bg-raised);
-  color: var(--text);
+.button--glass {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
+  color: var(--ink);
 }
 
-.section {
-  padding: 2.5rem 0;
+.button--glass:hover {
+  color: var(--ink);
 }
 
-.section > .wrap > h2:first-child {
-  margin-top: 0;
+/* Icônes : SVG dessinés à la main, colorés par les classes .tile et .icon */
+
+.tile {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
+  background: var(--blue);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 8px 18px -10px rgba(0, 122, 255, 0.8);
+  color: #fff;
 }
+
+.icon {
+  width: 1.625rem;
+  height: 1.625rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Accueil : héros */
+
+.hero {
+  padding-top: clamp(2.25rem, 6vw, 4.5rem);
+}
+
+.hero-head {
+  text-align: center;
+}
+
+.hero h1 {
+  max-width: 14em;
+  margin: 1.25rem auto 1rem;
+  color: var(--ink);
+  font-size: clamp(2.75rem, 1.4rem + 4.6vw, 4.75rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.lead {
+  max-width: 38rem;
+  margin: 0 auto;
+  color: var(--text-2);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  line-height: 1.5;
+}
+
+/* Accueil : scène du téléphone (le téléphone reste au centre de la scène).
+   Sans animation pilotée par le défilement, ou avec « Réduire les animations » :
+   téléphone fixe, de face. */
+
+.scene {
+  padding: clamp(2rem, 5vw, 3.5rem) 0 var(--space);
+}
+
+.scene-stage {
+  display: grid;
+  place-items: center;
+  perspective: 1400px;
+}
+
+.phone-tilt {
+  transform-style: preserve-3d;
+}
+
+.phone {
+  --pw: calc(var(--ph) * 0.4615);
+  position: relative;
+  width: var(--pw);
+  height: var(--ph);
+  padding: calc(var(--pw) * 0.035);
+  border-radius: calc(var(--pw) * 0.16);
+  background: linear-gradient(145deg, #55555d 0%, #222226 22%, #0c0c0e 52%, #1f1f23 80%, #4f4f57 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 0 0 calc(var(--pw) * 0.012) #111114,
+    0 50px 80px -40px rgba(15, 40, 70, 0.5),
+    0 18px 40px -24px rgba(15, 40, 70, 0.4);
+  transform-style: preserve-3d;
+}
+
+/* Tranche : un second panneau en retrait donne l'épaisseur quand le téléphone pivote. */
+.phone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(145deg, #3c3c43, #111114 55%, #2c2c31);
+  transform: translateZ(calc(var(--pw) * -0.05));
+}
+
+.phone-screen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--pw) * 0.125);
+  background: #fff;
+  transform: translateZ(1px);
+}
+
+/* Écran sans capture : le logo sur fond blanc. */
+.screen-logo {
+  color: var(--ink);
+  font-size: calc(var(--pw) * 0.17);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.phone-island {
+  position: absolute;
+  top: calc(var(--pw) * 0.065);
+  left: 50%;
+  width: calc(var(--pw) * 0.3);
+  height: calc(var(--pw) * 0.088);
+  margin-left: calc(var(--pw) * -0.15);
+  border-radius: 999px;
+  background: radial-gradient(circle closest-side at 82% 50%, #26324a 0 34%, rgba(0, 0, 0, 0) 42%), #000;
+  transform: translateZ(2px);
+}
+
+/* Les deux mondes */
+
+.world {
+  padding: var(--space) 0;
+}
+
+.world-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.kicker {
+  margin: 0 0 0.75rem;
+  color: var(--link);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.world h2 {
+  margin: 0 0 1rem;
+  color: var(--ink);
+  font-size: clamp(2.5rem, 1.2rem + 4vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.world-lead {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--text-2);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  line-height: 1.5;
+}
+
+.world-head--center {
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.world-head--center .world-lead {
+  margin: 0 auto;
+}
+
+/* Monde Optimisation : le monde sombre de l'app */
+
+.optim {
+  margin: 0 clamp(0.5rem, 2vw, 1.5rem);
+  border-radius: clamp(1.75rem, 3vw, 2.5rem);
+  background: radial-gradient(40rem 28rem at 85% 30%, rgba(0, 122, 255, 0.18), rgba(0, 122, 255, 0) 70%), var(--ink);
+  color: var(--on-dark);
+}
+
+.optim h2 {
+  color: var(--on-dark);
+}
+
+.optim .world-lead {
+  color: var(--on-dark-2);
+}
+
+.optim :focus-visible {
+  outline-color: var(--on-dark);
+}
+
+/* Cartes */
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
-  list-style: none;
-  margin: 1.5rem 0 0;
+  margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .cards li + li {
@@ -281,129 +552,262 @@ strong {
 
 .card {
   height: 100%;
-  padding: 1.5rem;
-  background: var(--bg-raised);
-  border: 1px solid var(--line);
+  padding: clamp(1.5rem, 3vw, 2rem);
   border-radius: var(--radius);
 }
 
 .card h3 {
-  margin: 0.9rem 0 0.4rem;
+  margin: 1.125rem 0 0.375rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .card p {
   margin: 0;
-  color: var(--muted);
 }
 
-.card svg {
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--blue);
+.card p + p {
+  margin-top: 0.875rem;
+}
+
+.card--light {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
+  color: var(--ink);
+}
+
+.card--light p {
+  color: var(--text-2);
+}
+
+.card--dark {
+  border: 1px solid var(--hairline-dark);
+  background: var(--glass-dark-solid);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: var(--on-dark);
+}
+
+.card--dark p {
+  color: var(--on-dark-2);
+}
+
+.card--feature h2 {
+  margin: 1.25rem 0 0.75rem;
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.cards--pro {
+  max-width: 52rem;
+  margin: clamp(2rem, 5vw, 3rem) auto 0;
 }
 
 .note {
-  color: var(--muted);
+  max-width: 52rem;
+  margin: 1.5rem auto 0;
+  color: var(--text-2);
   font-size: 0.9375rem;
+  text-align: center;
 }
 
-.band {
-  background: var(--light);
-  color: var(--light-text);
-  padding: 3rem 0;
+.world--end {
+  padding-top: 0;
 }
 
-.band a {
-  color: var(--light-link);
+.duo {
+  display: grid;
+  gap: 1rem;
 }
 
-.band a:hover {
-  color: var(--light-text);
-}
-
-.band h2 {
-  margin-top: 0;
-}
-
-.band :focus-visible {
-  outline-color: var(--light-text);
-}
-
-/* Pages de texte */
+/* Pages de texte : légales et Aide */
 
 .page {
-  padding: 2.5rem 0 3rem;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(3rem, 7vw, 5rem);
 }
 
 .page h1 {
-  font-size: clamp(1.875rem, 6vw, 2.5rem);
+  margin: 0 0 1rem;
+  color: var(--ink);
+  font-size: clamp(2.25rem, 1.4rem + 3.8vw, 3.75rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.page h2 {
+  margin: 3rem 0 1rem;
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.page h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.1875rem;
+  font-weight: 800;
+}
+
+.page p,
+.page li {
+  line-height: 1.7;
+}
+
+.page .lead {
+  margin: 0 0 1rem;
 }
 
 .updated {
-  color: var(--muted);
-  font-size: 0.9375rem;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-solid);
+  color: var(--text-2);
+  font-size: 0.875rem;
 }
+
+/* Sommaire : liste groupée façon iOS, sur verre blanc */
 
 .toc {
-  margin: 1.5rem 0 2rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--bg-raised);
-  border: 1px solid var(--line);
+  margin: 2rem 0 2.5rem;
+  padding: 1.125rem 1.25rem 0.375rem;
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
 }
 
-.toc h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.0625rem;
+.page .toc h2 {
+  margin: 0 0 0.25rem;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.toc ol {
+.toc ol,
+.toc ul {
   margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+
+.toc li {
+  counter-increment: toc;
+}
+
+.toc li + li {
+  margin-top: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.toc a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: var(--ink);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+.toc ol a::before {
+  content: counter(toc) ".";
+  flex: none;
+  min-width: 1.75rem;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.toc a::after {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.25rem 0 auto;
+  border-top: 2px solid var(--text-2);
+  border-right: 2px solid var(--text-2);
+  transform: rotate(45deg);
+}
+
+/* Blocs sur verre blanc */
+
+.callout,
+dl.facts,
+.page address {
+  margin: 1.25rem 0 1.5rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
 }
 
 .callout {
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
-  border-left: 4px solid var(--blue);
-  background: var(--bg-raised);
-  border-radius: 0 12px 12px 0;
+  padding: 1.25rem 1.5rem;
+  box-shadow: inset 3px 0 0 var(--blue), var(--glass-shadow);
 }
 
-.callout p:last-child {
+.callout p:last-child,
+.callout ul:last-child {
   margin-bottom: 0;
 }
 
-.todo {
-  padding: 0 0.3em;
-  background: var(--todo-bg);
-  color: var(--todo-text);
-  border-radius: 4px;
-  font-weight: 600;
+.page address {
+  padding: 1rem 1.25rem;
+  line-height: 1.7;
 }
 
 dl.facts {
-  margin: 0 0 1.5rem;
+  padding: 0.25rem 1.25rem;
 }
 
 dl.facts dt {
-  margin-top: 0.75rem;
-  color: var(--muted);
-  font-size: 0.9375rem;
+  padding-top: 0.875rem;
+  color: var(--text-2);
+  font-size: 0.875rem;
 }
 
 dl.facts dd {
   margin: 0;
+  padding: 0.125rem 0 0.875rem;
+  border-bottom: 1px solid var(--hairline);
 }
 
-address {
-  font-style: normal;
+dl.facts dd:last-child {
+  border-bottom: 0;
 }
+
+.todo {
+  padding: 0 0.3em;
+  border-radius: 4px;
+  background: #fff1b8;
+  box-shadow: inset 0 0 0 1px #e9c85c;
+  color: #5a3e00;
+  font-weight: 600;
+}
+
+/* Tableaux : tableau classique, liste de cartes sous 600 px */
 
 .table-wrap {
-  margin: 1rem 0 1.5rem;
+  margin: 1.25rem 0 1.75rem;
   overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
 }
 
 table {
@@ -411,58 +815,64 @@ table {
   min-width: 36rem;
   border-collapse: collapse;
   font-size: 0.9375rem;
+  line-height: 1.55;
 }
 
 caption {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
+  color: var(--text-2);
+  font-size: 0.875rem;
   text-align: left;
-  color: var(--muted);
 }
 
 th,
 td {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
+  border-top: 1px solid var(--hairline);
   text-align: left;
   vertical-align: top;
-  border-top: 1px solid var(--line);
 }
 
 thead th {
-  background: var(--bg-raised);
+  font-size: 0.875rem;
 }
 
 /* Questions fréquentes */
 
-.faq section {
-  margin: 0 0 1rem;
-  padding: 1.25rem 1.25rem 0.25rem;
-  background: var(--bg-raised);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+.faq {
+  display: grid;
+  gap: 1rem;
 }
 
-.faq section h2 {
+.faq section {
+  padding: 1.5rem 1.5rem 0.5rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  background: var(--glass-solid);
+  box-shadow: var(--glass-shadow);
+}
+
+.page .faq h2 {
   margin: 0 0 0.75rem;
-  font-size: 1.1875rem;
+  font-size: 1.25rem;
 }
 
 /* Pied de page */
 
 .site-footer {
-  margin-top: 2rem;
-  padding: 2rem 0 2.5rem;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
+  padding: 2.5rem 0 3rem;
+  border-top: 1px solid var(--hairline);
+  color: var(--text-2);
   font-size: 0.9375rem;
 }
 
 .site-footer ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  list-style: none;
-  margin: 0 0 1rem;
+  gap: 0.25rem 1.5rem;
+  margin: 0 0 1.25rem;
   padding: 0;
+  list-style: none;
 }
 
 .site-footer li + li {
@@ -471,42 +881,271 @@ thead th {
 
 .site-footer a {
   display: inline-block;
-  padding: 0.35rem 0;
+  padding: 0.25rem 0;
 }
 
 .site-footer p {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.375rem;
 }
 
 /* 404 */
 
 .notfound {
-  padding: 5rem 0;
+  padding: clamp(4rem, 12vw, 8rem) 0;
   text-align: center;
+}
+
+.notfound h1 {
+  margin: 0 0 1rem;
+  color: var(--ink);
+  font-size: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
 }
 
 /* Écrans plus larges */
 
 @media (min-width: 40rem) {
   .cards {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
-  .hero {
-    padding: 5rem 0 4rem;
+@media (min-width: 48rem) {
+  .duo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 64rem) {
-  .cards {
-    grid-template-columns: repeat(3, 1fr);
+  .world-grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+
+  .world-grid > .world-head {
+    position: sticky;
+    top: calc(var(--header-h) + 2.5rem);
+    padding-top: 1rem;
+  }
+
+  .world-grid--reverse {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .world-grid--reverse > .world-head {
+    position: static;
+    order: 2;
+    padding-top: 0;
   }
 }
 
+/* Tableaux en cartes sous 600 px de large */
+
+@media screen and (max-width: 599.98px) {
+  .table-wrap {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .table-wrap table {
+    min-width: 0;
+  }
+
+  .table-wrap table,
+  .table-wrap caption,
+  .table-wrap tbody,
+  .table-wrap tr,
+  .table-wrap th,
+  .table-wrap td {
+    display: block;
+  }
+
+  .table-wrap thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .table-wrap caption {
+    padding: 0 0 0.75rem;
+  }
+
+  .table-wrap tr {
+    margin: 0 0 0.875rem;
+    padding: 1.125rem 1.25rem;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    background: var(--glass-solid);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .table-wrap th,
+  .table-wrap td {
+    padding: 0;
+    border: 0;
+  }
+
+  .table-wrap th[scope="row"] {
+    padding-bottom: 0.25rem;
+    font-size: 1.0625rem;
+  }
+
+  .table-wrap td {
+    padding-top: 0.75rem;
+  }
+
+  .table-wrap td::before {
+    content: attr(data-label);
+    content: attr(data-label) / "";
+    display: block;
+    margin-bottom: 0.125rem;
+    color: var(--text-2);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+}
+
+/* Verre dépoli quand le navigateur sait le faire (sinon : fonds opaques ci-dessus) */
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .site-header {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+  }
+
+  .pill,
+  .button--glass,
+  .card--light,
+  .updated,
+  .toc,
+  .callout,
+  dl.facts,
+  .page address,
+  .table-wrap,
+  .faq section {
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+  }
+
+  .card--dark {
+    background: var(--glass-dark);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+  }
+
+  @media screen and (max-width: 599.98px) {
+    .table-wrap {
+      background: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    .table-wrap tr {
+      background: var(--glass);
+      -webkit-backdrop-filter: var(--blur);
+      backdrop-filter: var(--blur);
+    }
+  }
+}
+
+/* Mouvement : seulement si l'utilisateur ne demande pas de le réduire,
+   et seulement sur transform et opacity. */
+
 @media (prefers-reduced-motion: no-preference) {
-  a,
+  html {
+    scroll-behavior: smooth;
+  }
+
   .button {
-    transition: color 0.15s ease, background-color 0.15s ease;
+    transition: transform 0.2s ease;
+  }
+}
+
+/* Animations pilotées par le défilement (animation-timeline).
+   Sans cette fonction, ou avec « Réduire les animations », rien ne bouge
+   et tout reste en place, lisible. */
+
+@keyframes scene-pivot {
+  from {
+    transform: translateY(-12vh) rotateX(14deg) rotateY(-30deg) rotateZ(-6deg) scale(0.9);
+  }
+
+  to {
+    transform: translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+  }
+}
+
+@keyframes scene-zoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(var(--zoom-end));
+  }
+}
+
+@keyframes world-slide {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Le téléphone pivote vers toi pendant que la scène arrive, puis la scène
+       reste en place et le téléphone grandit jusqu'à ce que son écran couvre la vue. */
+    .scene {
+      height: 260svh;
+      padding: 0;
+      view-timeline-name: --scene;
+    }
+
+    .scene-stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+    }
+
+    .phone-tilt {
+      animation: scene-pivot linear both;
+      animation-timeline: --scene;
+      animation-range: entry 20% contain 0%;
+    }
+
+    .phone {
+      animation: scene-zoom linear both;
+      animation-timeline: --scene;
+      animation-range: contain 8% contain 92%;
+    }
+
+    /* Le monde Optimisation glisse depuis la droite, comme le geste de l'app. */
+    .optim-track {
+      overflow-x: clip;
+      view-timeline-name: --optim;
+    }
+
+    .optim {
+      animation: world-slide linear both;
+      animation-timeline: --optim;
+      animation-range: cover 0% cover 32%;
+    }
   }
 }
 
@@ -518,20 +1157,134 @@ thead th {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+
+  .button:hover {
+    transform: none;
+  }
 }
 
+/* Impression : fond blanc, texte noir, adresse des liens visible */
+
 @media print {
-  .site-header nav,
-  .skip-link {
-    display: none;
+  @page {
+    margin: 1.5cm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    color: #000 !important;
+    background: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html {
+    scroll-padding-top: 0;
   }
 
   body {
-    background: #fff;
-    color: #000;
+    background: #fff !important;
+    font-size: 11pt;
   }
-}
 
-.notfound .actions {
-  justify-content: center;
+  .site-header {
+    position: static;
+    border-bottom: 1px solid #000;
+  }
+
+  .site-nav,
+  .skip-link,
+  .scene,
+  .actions,
+  .tile {
+    display: none !important;
+  }
+
+  .hero,
+  .world,
+  .page,
+  .notfound {
+    padding: 1.5rem 0;
+  }
+
+  .optim {
+    margin: 0;
+    border: 1px solid #000;
+  }
+
+  .hero h1,
+  .world h2,
+  .page h1 {
+    font-size: 22pt;
+  }
+
+  .card,
+  .toc,
+  .callout,
+  dl.facts,
+  .page address,
+  .table-wrap,
+  .faq section,
+  .pill,
+  .updated {
+    border: 1px solid #000;
+  }
+
+  .table-wrap {
+    overflow: visible;
+  }
+
+  table {
+    min-width: 0;
+  }
+
+  th,
+  td {
+    border-top: 1px solid #000;
+  }
+
+  .toc li + li,
+  dl.facts dd {
+    border-color: #999;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+  }
+
+  a[href^="/"]::after {
+    content: " (https://kcalis.app" attr(href) ")";
+    font-size: 0.9em;
+  }
+
+  .brand::after,
+  .toc a::after {
+    content: none !important;
+    display: none;
+  }
+
+  .todo {
+    border: 1px dashed #000;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  tr,
+  .card,
+  .faq section,
+  dl.facts,
+  .page address {
+    break-inside: avoid;
+  }
 }
