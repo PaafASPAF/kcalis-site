@@ -1111,7 +1111,7 @@ thead th {
     /* Le téléphone pivote vers toi pendant que la scène arrive, puis la scène
        reste en place et le téléphone grandit jusqu'à ce que son écran couvre la vue. */
     .scene {
-      height: 260svh;
+      height: 180svh;
       padding: 0;
       view-timeline-name: --scene;
     }
